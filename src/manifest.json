@@ -2,18 +2,28 @@
     "name": "notion assistant",
     "description": "Notion Assistant Extension",
     "version": "1.0",
-    "manifest_version": 2,
-    "browser_action": {
-        "default_popup": "hello.html",
-        "default_icon": "./resouce/icon/icon.png"
+    "manifest_version": 3,
+    "permissions": [
+        "storage",
+        "activeTab", 
+        "scripting"
+    ],
+    "background": {
+        "service_worker": "background.js"
     },
-    "commands": {
-        "_execute_browser_action": {
-            "suggested_key": {
-                "default": "Ctrl+Shift+F",
-                "mac": "MacCtrl+Shift+F"
-            },
-            "description": "Opens hello.html"
+    "action": {
+        "default_popup": "popup.html",
+        "default_icon": {
+            "16": "/resource/icon/icon.png",
+            "32": "/resource/icon/icon.png",
+            "48": "/resource/icon/icon.png",
+            "128": "/resource/icon/icon.png"
         }
+    },
+    "icons": {
+        "16": "/resource/icon/icon.png",
+        "32": "/resource/icon/icon.png",
+        "48": "/resource/icon/icon.png",
+        "128": "/resource/icon/icon.png"
     }
 }
