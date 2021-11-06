@@ -61,9 +61,9 @@ changeColor.addEventListener("click", async () => {
 // The body of this function will be executed as a content script inside the
 // current page
 function setPageBackgroundColor() {
-    let NOTION_KEY = "secret_qPFMHNENfg0eL5Hni1NMxHrVZ5zC60SDTkgHze469Of";
-    let NOTION_DATABASE_ID = "85e892c7fc724db99455db9999099092";
-    let NOTION_VERSION = "2021-05-13";
+    let NOTION_KEY = "Bearer secret_8REWwrsPx6jaO5dbghKP3Oc0lTsK8BT69A81ZC1GAx1";
+    let NOTION_DATABASE_ID = "2359dc1ba47e4a03a3a904b5a4ef078a";
+    let NOTION_VERSION = "2021-08-16";
     /*
     function savePage(database_id, token) {
         url_notion = 'https://api.notion.com/v1/databases/' + database_id + '/query/'
@@ -155,31 +155,41 @@ function setPageBackgroundColor() {
         let database_id = NOTION_DATABASE_ID;
         let token = NOTION_KEY;
 
-        url_notion = 'https://api.notion.com/v1/databases/' + database_id + '/query/'
+        // url_notion = 'https://api.notion.com/v1/databases/' + database_id + '/query/'
+        url_notion = "https://api.notion.com/v1/databases/2359dc1ba47e4a03a3a904b5a4ef078a/query";
         // url_notion = 'https://api.notion.com/v1/user';
-        authorization = 'Bearer ' + token;
-        console.log(authorization);
+        console.log(token);
         console.log(url_notion);
-        fetch(url_notion, {
-            method: "POST",
-            mode: "no-cors",
-            headers: new Headers({
-                "Content-type": "application/json",
-                // "Authorization": 'Bearer ' + token,
-                "Authorization": authorization,
-                "Notion-Version": NOTION_VERSION
-            }),
-            data: {
-                "sorts": [
-                    {
-                        "property": "CreatedTime",
-                        "direction": "ascending"
-                    }
-                ]
-            }
-        // }).then(response => response.json()).then((result) => {
+        headers = new Headers({
+            "Content-Type": "application/json",
+            // "Authorization": 'Bearer ' + token,
+            "Authorization": token,
+            "Notion-Version": NOTION_VERSION,
+            // "Access-Control-Allow-Origin":'https://api.notion.com/',
+            // "Access-Control-Allow-Headers": "Content-Disposition,Origin, X-Requested-With, Content-Type, Accept,Authorization,id_token"
+            // 'Access-Control-Allow-Credentials': 'true'
 
-        }).then(response => {
+        })
+        // headers.append("Content-Type", "application/json");
+        // headers.append("Authorization", token);
+        // headers.append("Notion-Version", "NOTION_VERSION");
+
+        headers = {
+            method: "POST",
+            mode: "cors",
+            headers:{
+                "Authorization": token,
+                "Notion-Version": NOTION_VERSION,
+                // "Content-Type": "application/json",
+                "Content-Type": "text/plain",
+                // "Accept":"application/json",
+                "Access-Control-Allow-Origin": "https://api.notion.com/",
+
+            }
+        }
+        console.log(headers);
+        fetch(url_notion, headers).then(response => {
+            // }).then(response => response.json()).then((result) => {
             let c=1;
             console.log(response);
             console.log('it worked!');
