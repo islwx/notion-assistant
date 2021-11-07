@@ -18,7 +18,6 @@ chrome.runtime.onInstalled.addListener(() => {
     chrome.storage.sync.set({ "notion_token": notion_token }, function () { console.debug("set notion_token: " + notion_token) });
     chrome.storage.sync.set({ "notion_database_id": notion_database_id }, function () { console.debug("set notion_database_id: " + notion_database_id) });
     chrome.storage.sync.set({ "notion_version": notion_version }, function () { console.debug("set notion_version: " + notion_version) });
-
 });
 
 function fetchNotion(url, method, params, sender, sendResponse){
