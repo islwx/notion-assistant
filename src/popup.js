@@ -31,6 +31,10 @@ changeColor.addEventListener("click", async () => {
     let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
 
     chrome.scripting.executeScript({
+        target: {tabId: tab.id},
+        files: ['notion_obj.js']
+      });
+    chrome.scripting.executeScript({
         target: { tabId: tab.id },
         function: setPageBackgroundColor,
     });
@@ -52,6 +56,7 @@ function setPageBackgroundColor() {
         let ori_name = null;
         let publisher = null;
         let translator = null;
+        let score = parseFloat(document.querySelector("#interest_sectl > div > div.rating_self.clearfix > strong").textContent);
         let authors = new Array();
         document.head.querySelectorAll("[property~='book:author'][content]").forEach(function (item) {
             authors.push(item.content.replace(/\s*$|^\s*/g, ""));
@@ -82,37 +87,36 @@ function setPageBackgroundColor() {
                 translator = val.split("/").map(item => item.replace(/\s*$|^\s*/g, ""));
             }
         })
-        console.log(book_name)
-        console.log(description)
-        console.log(url)
-        console.log(img)
-        console.log(isbn)
-        console.log(ori_name)
-        console.log(publisher)
-        console.log(translator)
-        console.log(authors)
-        console.log(publishing_date)
-
-        chrome.storage.sync.get("notion_databse_id", ({ notion_databse_id }) => {
+        chrome.storage.sync.get("notion_database_id", ({ notion_database_id }) => {
             message = {
+                "cover":{
+                    "type": "external",
+                    "external": {
+                        "url": img,
+                    }
+                },
+                "icon":{
+                    "type":"emoji",
+                    "emoji":"📙"
+                },
                 "parent": {
-                    "database_id": notion_databse_id,
+                    "database_id": notion_database_id,
                 },
                 "properties": {
                     "Name": titleByStr(book_name),
-                    "OriginName": textByStr(origin_name),
+                    "OriginName": textByStr(ori_name),
                     "Publisher": getSelect(publisher),
-                    "Translator": mulseletByArr(translator),
-                    "Authors": mulseletByArr(authors),
+                    "Translator": multiseletByArr(translator),
+                    "Authors": multiseletByArr(authors),
                     "Description": textByStr(description),
                     "ISBN": textByStr(isbn),
                     "PublicationTime": DateByISO8601(publishing_date),
                     "Status": getSelect("Not started"),
                     // "Tag": {},
-                    // "Score": {},
+                    "Score": getNumber(score),
                 },
             }
-            console.log(messages);
+            console.log(message);
             action = "addPage";
             chrome.runtime.sendMessage({ action, message }, result => {
                 console.log(result);

@@ -49,7 +49,7 @@ function queryDatabases(params, sender, sendResponse) {
 }
 
 function addPage(params, sender, sendResponse){
-    fetchNotion(urlAddPage, "GET", params, sender, sendResponse)
+    fetchNotion(urlAddPage, "POST", params, sender, sendResponse)
 }
 
 let messageGuide = {
