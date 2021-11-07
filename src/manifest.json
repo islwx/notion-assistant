@@ -9,8 +9,9 @@
         "scripting"
     ],
     "host_permissions":[
-        "http://*/*",
-        "https://*/*"
+        "https://api.notion.com/",
+        "http://*/",
+        "https://*/"
     ],
     "background": {
         "service_worker": "background.js"
@@ -29,5 +30,8 @@
         "32": "/resource/icon/icon.png",
         "48": "/resource/icon/icon.png",
         "128": "/resource/icon/icon.png"
+    },
+    "content_security_policy": {
+        "extension_pages": "default-src 'self'; connect-src https://* data: blob: filesystem:;"
     }
 }
