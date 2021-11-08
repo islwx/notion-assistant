@@ -1,6 +1,7 @@
 let COLORS = ["default", "gray", "brown", "red", "orange", "yellow", "green", "blue", "purple", "pink"]
 
 function multiseletByArr(arr){
+    if (arr==null){ return null; }
     let multi_select_obj = []
     arr.forEach(ele => {
         multi_select_obj.push({name: ele});
@@ -22,6 +23,7 @@ function titleByStr(str){
 }
 
 function textByStr(str){
+    if (str == null){ return null; }
     return {
         "rich_text":[
             {
@@ -34,6 +36,7 @@ function textByStr(str){
 }
 
 function getSelect(str, color=null){
+    if (str == null){ return null; }
     let select_obj =  {
         "select":{
             "name":str
@@ -46,6 +49,7 @@ function getSelect(str, color=null){
 }
 
 function DateByISO8601(start, end=null){
+    if (start == null){ return null; }
     let date={
         "date":{
             "start": convert2iso8601(start)
@@ -58,17 +62,14 @@ function DateByISO8601(start, end=null){
 }
 
 function getNumber(num){
-    if (num != NaN){
-        return { number: num }
-    }
-    else{
-        return { number: null}
-    }
-
+    if (num == NaN || num == null){return null; }
+    return { number: num }
 }
 
 function convert2iso8601(str){
     let data = str.split("-");
+    if (data.length == 1){data[1] = "01"}
+    if (data.length == 2){data[2] = "01"}
     if (data[1].length == 1){
         data[1] = "0"+data[1]
     }

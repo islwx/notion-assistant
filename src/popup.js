@@ -1,10 +1,3 @@
-// Initialize button with user's preferred color
-(async () => {
-    const src = chrome.runtime.getURL("notion_obj.js");
-    const contentMain = await import(src);
-    console.log(contentMain.textByStr("123"));
-  })();
-
 // let oauth = document.getElementById("changeColor0");
 let changeColor = document.getElementById("changeColor");
 /*
@@ -111,6 +104,7 @@ function setPageBackgroundColor() {
                     "Description": textByStr(description),
                     "ISBN": textByStr(isbn),
                     "PublicationTime": DateByISO8601(publishing_date),
+                    // "Link": ,
                     "Status": getSelect("Not started"),
                     // "Tag": {},
                     "Score": getNumber(score),

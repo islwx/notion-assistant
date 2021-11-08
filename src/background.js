@@ -43,12 +43,18 @@ function fetchNotion(url, method, params, sender, sendResponse){
 function queryDatabases(params, sender, sendResponse) {
     chrome.storage.sync.get(["notion_database_id"], ({notion_database_id}) => {
         let url =  format(urlQueryDatabases, {notion_database_id:notion_database_id});
-        console.log(url,"---------------");
         fetchNotion(url, "POST", params, sender, sendResponse, sendResponse)
     });
 }
 
 function addPage(params, sender, sendResponse){
+    for (let key in params['properties'] ){
+        if (params['properties'][key] == null){
+            delete params['properties'][key];
+        }
+    }
+    
+    console.log(params);
     fetchNotion(urlAddPage, "POST", params, sender, sendResponse)
 }
 
