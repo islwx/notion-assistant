@@ -1,37 +1,29 @@
 {
-    "name": "notion assistant",
-    "description": "Notion Assistant Extension",
-    "version": "1.0",
-    "manifest_version": 3,
-    "permissions": [
-        "storage",
-        "activeTab", 
-        "scripting"
-    ],
-    "host_permissions":[
-        "https://api.notion.com/",
-        "http://*/",
-        "https://*/"
-    ],
-    "background": {
-        "service_worker": "background.js"
-    },
-    "action": {
-        "default_popup": "popup.html",
-        "default_icon": {
-            "16": "/resource/icon/icon.png",
-            "32": "/resource/icon/icon.png",
-            "48": "/resource/icon/icon.png",
-            "128": "/resource/icon/icon.png"
-        }
-    },
-    "icons": {
-        "16": "/resource/icon/icon.png",
-        "32": "/resource/icon/icon.png",
-        "48": "/resource/icon/icon.png",
-        "128": "/resource/icon/icon.png"
-    },
-    "content_security_policy": {
-        "extension_pages": "default-src 'self'; connect-src https://* data: blob: filesystem:;"
+  "name": "notion assistant",
+  "description": "Notion Assistant Extension",
+  "version": "1.0",
+  "manifest_version": 3,
+  "permissions": ["storage", "activeTab", "scripting"],
+  "host_permissions": ["https://api.notion.com/", "http://*/", "https://*/"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "/resource/icon/icon.png",
+      "32": "/resource/icon/icon.png",
+      "48": "/resource/icon/icon.png",
+      "128": "/resource/icon/icon.png"
     }
+  },
+  "icons": {
+    "16": "/resource/icon/icon.png",
+    "32": "/resource/icon/icon.png",
+    "48": "/resource/icon/icon.png",
+    "128": "/resource/icon/icon.png"
+  },
+  "content_security_policy": {
+    "extension_pages": "default-src 'self'; connect-src https://* data: blob: filesystem:;"
+  }
 }
