@@ -14,8 +14,9 @@ chrome -> 更多工具 -> 扩展程序 -> 开发者模式 -> 加载已解压的�
 ### 配置 config.json
 
 ```
-|- config.json
 |- src
+|-|- config
+|-|-|- config.json
 
 {
   "notion_token": "secret_xxxx",
