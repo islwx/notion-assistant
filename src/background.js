@@ -56,7 +56,6 @@ function init_notion() {
 }
 
 chrome.runtime.onInstalled.addListener(() => {
-  // let notion_database_id = "2359dc1ba47e4a03a3a904b5a4ef078a";
   init_notion();
 });
 
