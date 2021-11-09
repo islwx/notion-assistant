@@ -23,7 +23,7 @@ function init_notion() {
     function ({ notion_token, notion_database_id }) {
       if ((notion_token == null) | (notion_database_id == null)) {
         console.log("init notion msg");
-        fetch("../config.json")
+        fetch("./config/config.json")
           .then((response) => response.json())
           .then((res) => {
             let notion_version = "2021-08-16";
