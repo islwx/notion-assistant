@@ -17,23 +17,47 @@ function format(format_str, param_map) {
   );
 }
 
-chrome.runtime.onInstalled.addListener(() => {
-  let notion_database_id = "2359dc1ba47e4a03a3a904b5a4ef078a";
-  let notion_token =
-    "Bearer secret_8REWwrsPx6jaO5dbghKP3Oc0lTsK8BT69A81ZC1GAx1";
-  let notion_version = "2021-08-16";
-  chrome.storage.sync.set({ notion_token: notion_token }, function () {
-    console.debug("set notion_token: " + notion_token);
-  });
-  chrome.storage.sync.set(
-    { notion_database_id: notion_database_id },
-    function () {
-      console.debug("set notion_database_id: " + notion_database_id);
+function init_notion() {
+  chrome.storage.sync.get(
+    ["notion_token", "notion_database_id"],
+    function ({ notion_token, notion_database_id }) {
+      if ((notion_token == null) | (notion_database_id == null)) {
+        console.log("init notion msg");
+        fetch("./config.json")
+          .then((response) => response.json())
+          .then((res) => {
+            let notion_version = "2021-08-16";
+            let notion_token = "Bearer " + res["notion_token"];
+            let notion_database_id = res["notion_database_id"];
+            chrome.storage.sync.set(
+              { notion_token: notion_token },
+              function () {
+                console.debug("set notion_token: " + notion_token);
+              }
+            );
+            chrome.storage.sync.set(
+              { notion_database_id: notion_database_id },
+              function () {
+                console.debug("set notion_database_id: " + notion_database_id);
+              }
+            );
+            chrome.storage.sync.set(
+              { notion_version: notion_version },
+              function () {
+                console.debug("set notion_version: " + notion_version);
+              }
+            );
+          });
+      } else {
+        console.log("reload");
+      }
     }
   );
-  chrome.storage.sync.set({ notion_version: notion_version }, function () {
-    console.debug("set notion_version: " + notion_version);
-  });
+}
+
+chrome.runtime.onInstalled.addListener(() => {
+  // let notion_database_id = "2359dc1ba47e4a03a3a904b5a4ef078a";
+  init_notion();
 });
 
 function fetchNotion(url, method, params, sender, sendResponse) {
