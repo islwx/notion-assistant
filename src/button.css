@@ -1,12 +1,22 @@
-button {
-  height: 30px;
-  width: 30px;
+body {
+  min-width: 120px;
+}
+#changeColor {
   outline: none;
   margin: 10px;
   border: none;
-  border-radius: 2px;
+  border-radius: 4px;
+
+  box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+    rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+  color: rgba(255, 255, 255, 1);
+  background-color: rgb(37, 99, 235);
+  color: #fff;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: all 0.3s;
 }
-  
-button.current {
-  box-shadow: 0 0 0 2px white, 0 0 0 4px black;
+
+#changeColor:active {
+  background-color: rgb(4, 46, 136);
 }
