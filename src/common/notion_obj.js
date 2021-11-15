@@ -17,7 +17,7 @@ function multiseletByArr(arr) {
   arr.forEach((ele) => {
     multi_select_obj.push({ name: ele });
   });
-  return { multi_select_obj };
+  return { multi_select: multi_select_obj };
 }
 
 function titleByStr(str) {
