@@ -12,12 +12,14 @@ let COLORS = [
 ];
 
 function multiseletByArr(arr) {
-  if (!arr) return null;
-  const multi_select_obj = [];
+  if (arr == null) {
+    return null;
+  }
+  let multi_select_obj = [];
   arr.forEach((ele) => {
     multi_select_obj.push({ name: ele });
   });
-  return { multi_select_obj };
+  return { multi_select: multi_select_obj };
 }
 
 function titleByStr(str) {
@@ -34,7 +36,9 @@ function titleByStr(str) {
 }
 
 function textByStr(str) {
-  if (!str) return null;
+  if (str == null) {
+    return null;
+  }
   return {
     rich_text: [
       {
@@ -47,38 +51,62 @@ function textByStr(str) {
 }
 
 function getSelect(str, color = null) {
-  if (!str) return null;
-  const select_obj = {
+  if (str == null) {
+    return null;
+  }
+  let select_obj = {
     select: {
       name: str,
     },
   };
-  if (color && color in COLORS) select_obj["select"]["color"] = color;
+  if (color != null && color in COLORS) {
+    select_obj["select"]["color"] = color;
+  }
   return select_obj;
 }
 
 function DateByISO8601(start, end = null) {
-  if (!start) return null;
-  const date = {
+  if (start == null) {
+    return null;
+  }
+  let date = {
     date: {
       start: convert2iso8601(start),
     },
   };
-  if (end) date["date"]["end"] = end;
+  if (end != null) {
+    date["date"]["end"] = end;
+  }
   return date;
 }
 
 function getNumber(num) {
-  return num ? { number: num } : null;
+  if (num == NaN || num == null) {
+    return null;
+  }
+  return { number: num };
 }
 
 function convert2iso8601(str) {
-  const time = new Date(str);
-  return JSON.stringify(time) === "null"
-    ? new Date().toISOString()
-    : time.toISOString();
+  let data = str.split("-");
+  if (data.length == 1) {
+    data[1] = "01";
+  }
+  if (data.length == 2) {
+    data[2] = "01";
+  }
+  if (data[1].length == 1) {
+    data[1] = "0" + data[1];
+  }
+  if (data[2].length == 1) {
+    data[2] = "0" + data[2];
+  }
+  return data.join("-") + "T12:00:00Z";
 }
 
 function getURL(url) {
-  return url ? { url } : null;
+  if (url == null) {
+    return null;
+  }
+  return { url: url };
 }
