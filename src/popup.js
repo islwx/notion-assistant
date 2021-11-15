@@ -125,7 +125,7 @@ function setPageBackgroundColor() {
           Score: getNumber(score),
         },
       };
-      console.log("message", message);
+      console.log(message);
       action = "addPage";
       chrome.runtime.sendMessage({ action, message }, (result) => {
         console.log(result);
