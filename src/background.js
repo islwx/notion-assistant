@@ -41,12 +41,9 @@ function init_notion() {
                 console.debug("set notion_database_id: " + notion_database_id);
               }
             );
-            chrome.storage.sync.set(
-              { notion_version: notion_version },
-              function () {
-                console.debug("set notion_version: " + notion_version);
-              }
-            );
+            chrome.storage.sync.set({ notion_version }, function () {
+              console.debug("set notion_version: " + notion_version);
+            });
           });
       } else {
         console.log("reload");
@@ -63,7 +60,7 @@ function fetchNotion(url, method, params, sender, sendResponse) {
   chrome.storage.sync.get(
     ["notion_token", "notion_version"],
     function ({ notion_token, notion_version }) {
-      let init = {
+      const init = {
         method: method,
         headers: {
           Authorization: notion_token, //result.notion_token,
@@ -71,12 +68,8 @@ function fetchNotion(url, method, params, sender, sendResponse) {
           "Content-Type": "application/json",
         },
       };
-      if (method == "POST") {
-        init["mode"] = "cors";
-      }
-      if (params != null) {
-        init["body"] = JSON.stringify(params);
-      }
+      method === "POST" && (init["mode"] = "cors");
+      params && (init["body"] = JSON.stringify(params));
       fetch(url, init)
         .then((response) => response.json())
         .then((res) => sendResponse(res));
