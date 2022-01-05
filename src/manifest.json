@@ -19,6 +19,11 @@
       "matches":["https://book.douban.com/subject/*"],
       "css":[],
       "js":["common/notion_obj.js", "content/book_douban_subject/content_script.js"]
+    },
+    {
+      "matches":["https://arxiv.org/abs/*"],
+      "css":[],
+      "js":["common/notion_obj.js", "content/paper_arxiv_subject/content_script.js"]
     }
   ],
   "content_security_policy": {
