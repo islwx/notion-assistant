@@ -1,4 +1,5 @@
 {
-  "notion_token": "secret_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-  "notion_database_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+  "notion_token": "secret_x",
+  "notion_book_database_id": "x",
+  "notion_paper_database_id": "x"
 }

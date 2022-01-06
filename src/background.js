@@ -1,4 +1,3 @@
-let notion_database_id = null;
 let notion_token = null;
 let urlQueryDatabases =
   "https://api.notion.com/v1/databases/{notion_database_id}/query";
@@ -19,16 +18,17 @@ function format(format_str, param_map) {
 
 function init_notion() {
   chrome.storage.sync.get(
-    ["notion_token", "notion_database_id"],
-    function ({ notion_token, notion_database_id }) {
-      if ((notion_token == null) | (notion_database_id == null)) {
+    ["notion_token", "notion_book_database_id", "notion_paper_database_id"],
+    function ({ notion_token, notion_book_database_id, notion_paper_database_id}) {
+      if ((notion_token == null) | (notion_book_database_id == null) | (notion_paper_database_id == null)) {
         console.log("init notion msg");
         fetch("./config/config.json")
           .then((response) => response.json())
           .then((res) => {
             let notion_version = "2021-08-16";
             let notion_token = "Bearer " + res["notion_token"];
-            let notion_database_id = res["notion_database_id"];
+            let notion_book_database_id = res["notion_book_database_id"];
+            let notion_paper_database_id = res["notion_paper_database_id"];
             chrome.storage.sync.set(
               { notion_token: notion_token },
               function () {
@@ -36,9 +36,15 @@ function init_notion() {
               }
             );
             chrome.storage.sync.set(
-              { notion_database_id: notion_database_id },
+              { notion_book_database_id: notion_book_database_id },
               function () {
-                console.debug("set notion_database_id: " + notion_database_id);
+                console.debug("set notion_book_database_id: " + notion_book_database_id);
+              }
+            );
+            chrome.storage.sync.set(
+              { notion_paper_database_id: notion_paper_database_id },
+              function () {
+                console.debug("set notion_paper_database_id: " + notion_paper_database_id);
               }
             );
             chrome.storage.sync.set(
@@ -85,7 +91,9 @@ function fetchNotion(url, method, params, sender, sendResponse) {
 }
 
 function queryDatabases(params, sender, sendResponse) {
-  chrome.storage.sync.get(["notion_database_id"], ({ notion_database_id }) => {
+  let notion_database_name = params['notion_database_name'];
+  delete params['notion_database_name']
+  chrome.storage.sync.get([notion_database_name], ({ notion_database_id }) => {
     let url = format(urlQueryDatabases, {
       notion_database_id: notion_database_id,
     });

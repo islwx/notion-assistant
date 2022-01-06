@@ -57,7 +57,7 @@ function collect_to_notion() {
           .map((item) => item.replace(/\s*$|^\s*/g, ""));
       }
     });
-  chrome.storage.sync.get("notion_database_id", ({ notion_database_id }) => {
+  chrome.storage.sync.get("notion_book_database_id", ({ notion_book_database_id }) => {
     message = {
       cover: {
         type: "external",
@@ -70,7 +70,7 @@ function collect_to_notion() {
         emoji: "📙",
       },
       parent: {
-        database_id: notion_database_id,
+        database_id: notion_book_database_id,
       },
       properties: {
         Name: titleByStr(book_name),
@@ -90,7 +90,13 @@ function collect_to_notion() {
     console.log(message);
     action = "addPage";
     chrome.runtime.sendMessage({ action, message }, (result) => {
-      console.log(result);
+      if (result['object'] == "page"){
+        alert('收藏成功');
+      }
+      else {
+        alert("收藏失败");
+        console.error("result:", result);
+      }
     });
   });
 }
