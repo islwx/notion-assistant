@@ -24,6 +24,11 @@
       "matches":["https://arxiv.org/abs/*"],
       "css":[],
       "js":["common/notion_obj.js", "content/paper_arxiv_subject/content_script.js"]
+    },
+    {
+      "matches":["https://proceedings.neurips.cc/paper/*/hash/*-Abstract.html"],
+      "css":[],
+      "js":["common/notion_obj.js", "content/paper_nips_subject/content_script.js"]
     }
   ],
   "content_security_policy": {
