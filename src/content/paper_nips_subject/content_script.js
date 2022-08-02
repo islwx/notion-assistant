@@ -12,7 +12,7 @@ function dowload() {
    pdfurl = url + '.pdf';
   }
   var fileName = '[NIPS.' +published_date + ']' + title.toString().replace(": "," -- ") + '.pdf';
-  obj.innerHTML = '<a download='+ '"'+ fileName + '"' + ' href=' + `${pdfurl}` +'>Save as pdf</a>';
+  obj.innerHTML = '<a class="nav-link" download='+ '"'+ fileName + '"' + ' href=' + `${pdfurl}` +'>Save as pdf</a>';
   // loc.insertBefore(obj, loc.childNodes[0]);
   loc.insertBefore(obj, loc.childNodes[-1]);
 };
@@ -43,7 +43,7 @@ function collect_to_notion() {
   let status = 'Not started';
   let published = getElementByXpath(
     "/html/body/div[2]/div/p[1]/a"
-  ).innerText;
+  ).innerText.slice(0, 99);
   let icon = null;
   let subjects = null;
   let remark = null;
