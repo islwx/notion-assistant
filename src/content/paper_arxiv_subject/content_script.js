@@ -55,7 +55,7 @@ function collect_to_notion() {
   let remark = null;
   comment_objs = document.body.getElementsByClassName("tablecell comments mathjax")
   if (comment_objs.length>0){
-    let remark = comment_objs[0].innerText;
+    remark = comment_objs[0].innerText;
   }
   
   chrome.storage.sync.get("notion_paper_database_id", ({ notion_paper_database_id }) => {
