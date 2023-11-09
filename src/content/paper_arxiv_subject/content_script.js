@@ -48,10 +48,16 @@ function collect_to_notion() {
   let status = 'Not started';
   let published = 'arxiv';
   let published_date = document.head.querySelector("[name~='citation_online_date'][content]").content;
-  let icon = document.head.querySelector("link[rel*='shortcut icon']").href;
-  let subjects = document.body
+  let icon = document.head.querySelector("link[rel*='apple-touch-icon']").href;
+  let subjects = new Array();
+  document.body
   .getElementsByClassName("tablecell subjects")[0]
-  .innerText.split("; ");
+  .innerText
+  .split("; ")
+  .forEach(function (item){
+    subjects.push(item.replaceAll(",", "，"));  // notion selece don't suppose "," at select
+    
+  });
   let remark = null;
   comment_objs = document.body.getElementsByClassName("tablecell comments mathjax")
   if (comment_objs.length>0){
