@@ -55,7 +55,7 @@ function collect_to_notion() {
   .innerText
   .split("; ")
   .forEach(function (item){
-    subjects.push(item.replaceAll(",", "，"));  // notion selece don't suppose "," at select
+    subjects.push(item.replaceAll(",", "，"));  // notion don't suppose "," at select
     
   });
   let remark = null;
